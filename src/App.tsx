@@ -21,11 +21,13 @@ function Brand({ compact = false }: { compact?: boolean }) {
   </Link>
 }
 
-function PageHeader({ breadcrumbs }: { breadcrumbs?: string[] }) {
+interface Breadcrumb { label: string; to?: string }
+
+function PageHeader({ breadcrumbs }: { breadcrumbs?: Breadcrumb[] }) {
   return <header className="page-header">
     <Brand compact />
     {breadcrumbs && <nav className="breadcrumbs" aria-label="面包屑">
-      {breadcrumbs.map((crumb, index) => <span key={crumb}><ChevronRight size={15} />{crumb}</span>)}
+      {breadcrumbs.map((crumb) => <span key={crumb.label}><ChevronRight size={15} />{crumb.to ? <Link to={crumb.to}>{crumb.label}</Link> : <b>{crumb.label}</b>}</span>)}
     </nav>}
     <Link className="back-home" to="/"><Grid2X2 size={16} />浏览素材</Link>
   </header>
@@ -133,7 +135,7 @@ function HomePage() {
 function CharacterPage() {
   const [selectedId, setSelectedId] = useState(outfits[0].id)
   const selected = getOutfit(selectedId) ?? outfits[0]
-  return <main className="inner-page"><PageHeader breadcrumbs={['角色素材库', '角色详情']} />
+  return <main className="inner-page"><PageHeader breadcrumbs={[{ label: '角色详情' }]} />
     <section className="character-hero">
       <ImageThumb src="initial-close.png" alt="贝拉角色档案" />
       <div className="hero-wash" />
@@ -164,7 +166,7 @@ function OutfitPage() {
   useEffect(() => setLightboxIndex(null), [kind, outfitId])
   if (!outfit) return <Navigate to={`/outfit/${outfits[0].id}`} replace />
   const visible = kind === 'all' ? outfit.assets : outfit.assets.filter((asset) => asset.kind === kind)
-  return <main className="asset-page"><PageHeader breadcrumbs={['角色素材库', '贝拉', outfit.name]} />
+  return <main className="asset-page"><PageHeader breadcrumbs={[{ label: '贝拉', to: '/character/bella' }, { label: outfit.name }]} />
     <section className="asset-layout">
       <aside className="asset-sidebar"><ImageThumb src={outfit.cover} alt={`${outfit.name}封面`} /><h1>{outfit.name}</h1><p>A-SOUL · 贝拉</p><span className="id-pill">服装 ID：{outfit.code}</span><Tags tags={outfit.tags} />
         <dl><div><dt>角色 ID</dt><dd>CHAR-001</dd></div><div><dt>角色名称</dt><dd>贝拉</dd></div><div><dt>分类</dt><dd>{outfit.category}</dd></div><div><dt>资产数量</dt><dd>{outfit.assets.length} 个文件</dd></div><div><dt>文件格式</dt><dd>PNG 原始图</dd></div></dl>
