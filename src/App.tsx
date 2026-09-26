@@ -92,11 +92,7 @@ function HomePage() {
       <div className="home-nav"><Brand />
 
       </div>
-      <div className="hero-copy">
-        <p className="kicker">CHARACTER COLLECTION</p>
-        <h1>发现角色的<br /><em>每一种灵感</em></h1>
-        <p>收录贝拉的服装素材与多视角原图，为二创、设计和收藏而准备。</p>
-      </div>
+
       <div className="hero-orbit"><Sparkles /><span>Character<br />A-SOUL</span></div>
     </section>
 
@@ -105,14 +101,13 @@ function HomePage() {
         <form className="search-box filter-search" onSubmit={(event) => event.preventDefault()}>
           <Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索角色名称 / 编号 / 标签..." aria-label="搜索素材" />
           {query && <button type="button" className="clear-search" onClick={() => setQuery('')} aria-label="清除搜索"><X size={17} /></button>}
-          <button type="submit">搜索</button>
         </form>
         {categories.map((item) => <button key={item} className={category === item ? 'active' : ''} onClick={() => setCategory(item)}>
           {item === '全部' ? <Grid2X2 size={18} /> : <Shirt size={18} />}{item === '全部' ? '全部素材' : item}
         </button>)}
       </div>
 
-      <div className="section-heading"><div><p className="kicker">FEATURED CHARACTER</p><h2>角色档案</h2></div><span>持续收录中</span></div>
+      <div className="section-heading"><div><h2>角色档案</h2></div><span>持续收录中</span></div>
       <div className="character-grid">
         <Link className="character-card bella-card" to="/character/bella">
           <ImageThumb src="initial-close.png" alt="贝拉初代团服" />
@@ -127,7 +122,7 @@ function HomePage() {
         </article>)}
       </div>
 
-      <div className="section-heading outfit-heading"><div><p className="kicker">BELLA OUTFITS</p><h2>{query || category !== '全部' ? '筛选结果' : '贝拉服装集'}</h2></div><span>{filtered.length} 套服装</span></div>
+      <div className="section-heading outfit-heading"><div><h2>{query || category !== '全部' ? '筛选结果' : '贝拉服装集'}</h2></div><span>{filtered.length} 套服装</span></div>
       {filtered.length ? <div className="outfit-grid">{filtered.map((outfit) => <OutfitCard outfit={outfit} key={outfit.id} />)}</div> :
         <div className="empty-state"><Search size={29} /><h3>没有匹配的素材</h3><p>试试其他关键词或切换分类。</p><button onClick={() => { setQuery(''); setCategory('全部') }}>清除筛选</button></div>}
     </section>
