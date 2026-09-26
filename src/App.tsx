@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import {
-  ArrowRight, Box, ChevronRight, Download, Grid2X2, Image as ImageIcon,
+  ArrowRight, Box, ChevronLeft, ChevronRight, Download, Grid2X2, Image as ImageIcon, Maximize2,
   PackageOpen, Search, Shirt, Sparkles, UserRound, X,
 } from 'lucide-react'
 import {
@@ -39,6 +39,27 @@ function Tags({ tags }: { tags: string[] }) {
   return <div className="tags">{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
 }
 
+function AssetLightbox({ assets, currentIndex, onClose, onChange }: { assets: Outfit['assets']; currentIndex: number; onClose: () => void; onChange: (index: number) => void }) {
+  const asset = assets[currentIndex]
+  useEffect(() => {
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+      if (event.key === 'ArrowLeft' && assets.length > 1) onChange((currentIndex - 1 + assets.length) % assets.length)
+      if (event.key === 'ArrowRight' && assets.length > 1) onChange((currentIndex + 1) % assets.length)
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [assets.length, currentIndex, onChange, onClose])
+
+  return <div className="lightbox-backdrop" role="presentation" onMouseDown={onClose}>
+    <section className="lightbox" role="dialog" aria-modal="true" aria-label={`${asset.title}大图预览`} onMouseDown={(event) => event.stopPropagation()}>
+      <button className="lightbox-close" type="button" onClick={onClose} aria-label="关闭预览"><X size={23} /></button>
+      <button className="lightbox-nav previous" type="button" onClick={() => onChange((currentIndex - 1 + assets.length) % assets.length)} disabled={assets.length <= 1} aria-label="查看上一张"><ChevronLeft size={28} /></button>
+      <figure className="lightbox-image"><img src={assetPath(asset.filename)} alt={asset.title} /><figcaption><span>{kindLabel[asset.kind]}</span><strong>{asset.title}.png</strong><small>{asset.width} × {asset.height} · PNG · {currentIndex + 1} / {assets.length}</small></figcaption></figure>
+      <button className="lightbox-nav next" type="button" onClick={() => onChange((currentIndex + 1) % assets.length)} disabled={assets.length <= 1} aria-label="查看下一张"><ChevronRight size={28} /></button>
+    </section>
+  </div>
+}
 function OutfitCard({ outfit, compact = false }: { outfit: Outfit; compact?: boolean }) {
   return <Link className={`outfit-card ${compact ? 'compact' : ''}`} to={`/outfit/${outfit.id}`}>
     <div className="outfit-image"><ImageThumb src={outfit.cover} alt={`${outfit.name}服装预览`} /></div>
@@ -139,6 +160,8 @@ function OutfitPage() {
   const { outfitId } = useParams()
   const outfit = getOutfit(outfitId)
   const [kind, setKind] = useState<AssetKind | 'all'>('all')
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  useEffect(() => setLightboxIndex(null), [kind, outfitId])
   if (!outfit) return <Navigate to={`/outfit/${outfits[0].id}`} replace />
   const visible = kind === 'all' ? outfit.assets : outfit.assets.filter((asset) => asset.kind === kind)
   return <main className="asset-page"><PageHeader breadcrumbs={['角色素材库', '贝拉', outfit.name]} />
@@ -146,14 +169,14 @@ function OutfitPage() {
       <aside className="asset-sidebar"><ImageThumb src={outfit.cover} alt={`${outfit.name}封面`} /><h1>{outfit.name}</h1><p>A-SOUL · 贝拉</p><span className="id-pill">服装 ID：{outfit.code}</span><Tags tags={outfit.tags} />
         <dl><div><dt>角色 ID</dt><dd>CHAR-001</dd></div><div><dt>角色名称</dt><dd>贝拉</dd></div><div><dt>分类</dt><dd>{outfit.category}</dd></div><div><dt>资产数量</dt><dd>{outfit.assets.length} 个文件</dd></div><div><dt>文件格式</dt><dd>PNG 原始图</dd></div></dl>
       </aside>
-      <section className="asset-main"><div className="asset-title"><div className="title-icon"><Shirt /></div><div><h1>服装素材</h1><p>当前页面仅展示已提供的真实原始素材，可直接下载使用。</p></div></div>
+      <section className="asset-main"><div className="asset-title"><div className="title-icon"><Shirt /></div><div><h1>服装素材</h1><p>点击缩略图即可在当前页面放大查看，使用左右按钮浏览同一服装的其他视图。</p></div></div>
         <div className="asset-filters" aria-label="素材类型筛选">{assetKinds.map((item) => <button key={item.value} className={kind === item.value ? 'active' : ''} onClick={() => setKind(item.value)}>{item.label}</button>)}</div>
-        <div className="asset-grid">{visible.map((asset) => <article className="asset-card" key={asset.id}><div className="asset-figure"><span>{kindLabel[asset.kind]}</span><ImageThumb src={asset.filename} alt={asset.title} /></div><h3>{asset.title}.png</h3><p>{asset.width} × {asset.height} · PNG</p><a className="download-button" href={assetPath(asset.filename)} download={`${asset.title}.png`}><Download size={17} />下载原图</a></article>)}</div>
+        <div className="asset-grid">{visible.map((asset) => <article className="asset-card" key={asset.id}><button className={`asset-figure ${asset.kind === 'close' ? '' : 'full-figure'}`} type="button" onClick={() => setLightboxIndex(outfit.assets.findIndex((entry) => entry.id === asset.id))} aria-label={`放大查看 ${asset.title}`}><span className="asset-kind">{kindLabel[asset.kind]}</span><ImageThumb src={asset.filename} alt={asset.title} /><span className="zoom-cue"><Maximize2 size={17} />放大查看</span></button><h3>{asset.title}.png</h3><p>{asset.width} × {asset.height} · PNG</p><a className="download-button" href={assetPath(asset.filename)} download={`${asset.title}.png`}><Download size={17} />下载原图</a></article>)}</div>
       </section>
     </section>
+    {lightboxIndex !== null && <AssetLightbox assets={outfit.assets} currentIndex={lightboxIndex} onClose={() => setLightboxIndex(null)} onChange={setLightboxIndex} />}
   </main>
 }
-
 export default function App() {
   return <><ScrollToTop /><Routes><Route path="/" element={<HomePage />} /><Route path="/character/bella" element={<CharacterPage />} /><Route path="/outfit/:outfitId" element={<OutfitPage />} /><Route path="*" element={<Navigate to="/" replace />} /></Routes></>
 }
