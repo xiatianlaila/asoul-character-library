@@ -41,7 +41,7 @@ function Tags({ tags }: { tags: string[] }) {
 
 function OutfitCard({ outfit, compact = false }: { outfit: Outfit; compact?: boolean }) {
   return <Link className={`outfit-card ${compact ? 'compact' : ''}`} to={`/outfit/${outfit.id}`}>
-    <div className="outfit-image"><ImageThumb src={outfit.cover} alt={`${outfit.name}服装预览`} /></div>
+    <div className="outfit-image"><ImageThumb className="outfit-backdrop" src={outfit.cover} alt="" /><ImageThumb className="outfit-portrait" src={outfit.cover} alt={`${outfit.name}服装预览`} /></div>
     <div className="outfit-card-copy">
       <span className="eyebrow">{outfit.category}</span>
       <strong>{outfit.name}</strong>
@@ -65,11 +65,7 @@ function HomePage() {
   return <main className="home-page">
     <section className="home-top">
       <div className="home-nav"><Brand />
-        <form className="search-box" onSubmit={(event) => event.preventDefault()}>
-          <Search size={21} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索角色名称 / 编号 / 标签..." aria-label="搜索素材" />
-          {query && <button type="button" className="clear-search" onClick={() => setQuery('')} aria-label="清除搜索"><X size={17} /></button>}
-          <button type="submit">搜索</button>
-        </form>
+
       </div>
       <div className="hero-copy">
         <p className="kicker">CHARACTER COLLECTION</p>
@@ -81,6 +77,11 @@ function HomePage() {
 
     <section className="content-wrap home-content">
       <div className="filter-row" aria-label="服装分类筛选">
+        <form className="search-box filter-search" onSubmit={(event) => event.preventDefault()}>
+          <Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索角色名称 / 编号 / 标签..." aria-label="搜索素材" />
+          {query && <button type="button" className="clear-search" onClick={() => setQuery('')} aria-label="清除搜索"><X size={17} /></button>}
+          <button type="submit">搜索</button>
+        </form>
         {categories.map((item) => <button key={item} className={category === item ? 'active' : ''} onClick={() => setCategory(item)}>
           {item === '全部' ? <Grid2X2 size={18} /> : <Shirt size={18} />}{item === '全部' ? '全部素材' : item}
         </button>)}
