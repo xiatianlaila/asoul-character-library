@@ -10,7 +10,9 @@ import {
 
 function ScrollToTop() {
   const { pathname } = useLocation()
-  useEffect(() => window.scrollTo(0, 0), [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
   return null
 }
 
@@ -163,7 +165,9 @@ function OutfitPage() {
   const outfit = getOutfit(outfitId)
   const [kind, setKind] = useState<AssetKind | 'all'>('all')
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-  useEffect(() => setLightboxIndex(null), [kind, outfitId])
+  useEffect(() => {
+    setLightboxIndex(null)
+  }, [kind, outfitId])
   if (!outfit) return <Navigate to={`/outfit/${outfits[0].id}`} replace />
   const visible = kind === 'all' ? outfit.assets : outfit.assets.filter((asset) => asset.kind === kind)
   return <main className="asset-page"><PageHeader breadcrumbs={[{ label: '贝拉', to: '/character/bella' }, { label: outfit.name }]} />
