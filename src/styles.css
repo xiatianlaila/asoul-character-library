@@ -9,28 +9,29 @@ a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 h1, h2, h3, p { margin: 0; }
 
-.home-top { min-height: 360px; position: relative; overflow: hidden; padding: 28px clamp(24px, 5vw, 78px) 68px; background: linear-gradient(113deg, rgba(255,255,255,.98), rgba(250,248,255,.82) 60%, rgba(232,224,255,.98)); }
-.home-top::before, .home-top::after { content: ""; position: absolute; pointer-events: none; }
-.home-top::before { width: 580px; height: 580px; border: 1px solid rgba(135, 95, 255, .13); border-radius: 50%; right: -70px; top: -380px; box-shadow: 0 0 0 78px rgba(145, 107, 255, .045), 0 0 0 157px rgba(145, 107, 255, .025); }
-.home-top::after { width: 36px; height: 36px; background: #af92ff; clip-path: polygon(50% 0, 63% 37%, 100% 50%, 63% 63%, 50% 100%, 37% 63%, 0 50%, 37% 37%); right: 13%; bottom: 45px; opacity: .55; }
+.home-top { min-height: 420px; position: relative; overflow: hidden; padding: 28px clamp(24px, 5vw, 78px) 68px; background: url('/assets/banner-anniversary.jpg') center 28% / cover no-repeat, #1a1035; }
+.home-top::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(14,8,38,.84) 0%, rgba(14,8,38,.62) 32%, rgba(14,8,38,.22) 58%, transparent 78%); pointer-events: none; }
+.home-top::after { display: none; }
 .home-nav, .page-header { position: relative; z-index: 2; display: flex; align-items: center; gap: 26px; max-width: 1520px; margin: 0 auto; }
 .brand { display: inline-flex; align-items: center; gap: 12px; color: #13113e; font-family: Georgia, "STSong", serif; font-size: clamp(21px, 2vw, 30px); font-weight: 800; letter-spacing: .04em; white-space: nowrap; }
 .brand small { display: block; color: #9a93ba; font-family: "Microsoft YaHei", sans-serif; font-size: 8px; letter-spacing: .2em; font-weight: 500; margin-top: 3px; }
+.home-top .brand { color: #fff; }
+.home-top .brand small { color: rgba(255,255,255,.6); }
 .brand-mark { display: grid; place-items: center; width: 37px; height: 37px; border-radius: 12px; background: linear-gradient(135deg, #bba3ff, #7b50ec); color: white; box-shadow: 0 8px 18px #936ce64c; }
 .search-box { display: flex; align-items: center; gap: 12px; min-width: 300px; width: min(720px, 52vw); margin-left: auto; padding: 5px 5px 5px 22px; background: rgba(255,255,255,.75); border: 1px solid #e5e2f3; border-radius: 99px; color: #282453; box-shadow: 0 10px 30px rgba(87,75,141,.06); }
 .search-box input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: #2e2a56; padding: 11px 0; }
 .search-box input::placeholder { color: #9a95b5; }
+.home-top .search-box { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.22); color: #fff; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+.home-top .search-box input { color: #fff; }
+.home-top .search-box input::placeholder { color: rgba(255,255,255,.5); }
 .search-box button { border: 0; background: linear-gradient(125deg, #af84ff, #7e4bee); color: #fff; border-radius: 99px; padding: 12px 32px; box-shadow: 0 5px 13px rgba(119,73,230,.29); }
 .search-box .clear-search { padding: 6px; color: #77708e; background: transparent; box-shadow: none; }
-.hero-copy { position: relative; z-index: 1; max-width: 1520px; margin: 62px auto 0; }
+.hero-copy { position: relative; z-index: 2; max-width: 1520px; margin: 62px auto 0; }
 .kicker { color: #9171ed; font-size: 11px; letter-spacing: .18em; font-weight: 800; }
-.hero-copy h1 { margin-top: 10px; color: #171340; font-family: Georgia, "STSong", serif; font-size: clamp(38px, 4vw, 62px); line-height: 1.08; letter-spacing: .035em; }
-.hero-copy h1 em { color: #8c5bf5; font-style: normal; }
-.hero-copy > p:last-child { width: min(460px, 76vw); color: #726d91; margin-top: 16px; line-height: 1.8; }
-.hero-orbit { position: absolute; z-index: 1; display: grid; place-items: center; width: 194px; height: 194px; right: 11%; bottom: 37px; border: 1px solid #dcd0ff; border-radius: 50%; color: #9b78f7; transform: rotate(-16deg); }
-.hero-orbit::after { content: ""; position: absolute; width: 144px; height: 144px; border: 1px dashed #c4adff; border-radius: 50%; }
-.hero-orbit svg { position: absolute; top: 22px; left: 23px; fill: #aa8aff; }
-.hero-orbit span { text-align: center; text-transform: uppercase; font-family: Georgia, serif; font-size: 19px; line-height: 1.4; letter-spacing: .12em; }
+.hero-copy h1 { margin-top: 10px; color: #fff; font-family: Georgia, "STSong", serif; font-size: clamp(38px, 4vw, 62px); line-height: 1.08; letter-spacing: .035em; text-shadow: 0 2px 16px rgba(0,0,0,.35); }
+.hero-copy h1 em { color: #c9a8ff; font-style: normal; }
+.hero-copy > p:last-child { width: min(460px, 76vw); color: rgba(255,255,255,.82); margin-top: 16px; line-height: 1.8; text-shadow: 0 1px 6px rgba(0,0,0,.3); }
+.hero-orbit { display: none; }
 
 .content-wrap { max-width: 1520px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 64px) 70px; }
 .home-content { margin-top: -31px; position: relative; z-index: 3; }
