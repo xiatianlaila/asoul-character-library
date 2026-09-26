@@ -89,9 +89,6 @@ function HomePage() {
 
   return <main className="home-page">
     <section className="home-top">
-      <div className="home-nav"><Brand />
-
-      </div>
 
       <div className="hero-orbit"><Sparkles /><span>Character<br />A-SOUL</span></div>
     </section>
