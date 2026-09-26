@@ -111,3 +111,6 @@ h1, h2, h3, p { margin: 0; }
   .filter-row { flex-wrap: wrap; overflow: visible; }
   .filter-search { order: -1; flex-basis: 100%; width: 100%; max-width: none; }
 }
+/* The supplied outfit portraits are square: square cards avoid side padding or artificial blur. */
+.outfit-card { aspect-ratio: 1; min-height: 0; }
+.outfit-image img { width: 100%; height: 100%; object-fit: contain; object-position: center; }

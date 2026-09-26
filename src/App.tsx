@@ -41,7 +41,7 @@ function Tags({ tags }: { tags: string[] }) {
 
 function OutfitCard({ outfit, compact = false }: { outfit: Outfit; compact?: boolean }) {
   return <Link className={`outfit-card ${compact ? 'compact' : ''}`} to={`/outfit/${outfit.id}`}>
-    <div className="outfit-image"><ImageThumb className="outfit-backdrop" src={outfit.cover} alt="" /><ImageThumb className="outfit-portrait" src={outfit.cover} alt={`${outfit.name}服装预览`} /></div>
+    <div className="outfit-image"><ImageThumb src={outfit.cover} alt={`${outfit.name}服装预览`} /></div>
     <div className="outfit-card-copy">
       <span className="eyebrow">{outfit.category}</span>
       <strong>{outfit.name}</strong>
