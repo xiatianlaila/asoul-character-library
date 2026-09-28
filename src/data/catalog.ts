@@ -44,6 +44,7 @@ export const outfits: Outfit[] = [
   { id: 'swimsuit', code: 'CHAR-001-OUTFIT-11', name: '泳装', category: '泳装', tags: ['泳装', '夏日', '清爽'], cover: 'swimsuit-close.png', assets: [face('swimsuit', 'swimsuit-close.png', '泳装')] },
   { id: 'jk', code: 'CHAR-001-OUTFIT-12', name: 'JK服', category: '其他', tags: ['JK', '校园', '日常'], cover: 'jk-close.png', assets: [face('jk', 'jk-close.png', 'JK服')] },
   { id: 'polar-bear', code: 'CHAR-001-OUTFIT-13', name: '北极熊', category: '其他', tags: ['北极熊', '冬季', '可爱'], cover: 'polar-bear-close.png', assets: [face('polar-bear', 'polar-bear-close.png', '北极熊')] },
+  { id: 'fifth-anniversary', code: 'CHAR-001-OUTFIT-14', name: '五周年', category: '节日', tags: ['周年', '纪念', '五周年'], cover: 'fifth-anniversary-close.png', assets: [face('fifth-anniversary', 'fifth-anniversary-close.png', '五周年')] },
 ]
 
 export const categories = ['全部', '团服', '礼服', '泳装', '节日', '其他']
