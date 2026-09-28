@@ -10,8 +10,8 @@ img { display: block; max-width: 100%; }
 h1, h2, h3, p { margin: 0; }
 
 .home-top { aspect-ratio: 3600 / 700; position: relative; overflow: hidden; padding: 28px clamp(24px, 5vw, 78px) 0; background: url('/assets/banner.jpg') center / cover no-repeat, #1a1035; }
-.home-top::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(14,8,38,.15) 0%, rgba(14,8,38,.35) 55%, rgba(14,8,38,.55) 100%); pointer-events: none; }
-.home-top::after { display: none; }
+.home-top::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(14,8,38,.03) 0%, rgba(14,8,38,.10) 55%, rgba(14,8,38,.22) 100%); pointer-events: none; }
+.home-top::after { content: ""; position: absolute; inset: 0; z-index: 1; border-bottom: 1px solid rgba(255,255,255,.30); background: linear-gradient(90deg, rgba(248,246,255,.16) 0%, transparent 19%, transparent 79%, rgba(225,216,255,.13) 100%), linear-gradient(180deg, transparent 58%, rgba(244,241,255,.16) 100%); pointer-events: none; }
 .home-nav, .page-header { position: relative; z-index: 2; display: flex; align-items: center; gap: 26px; max-width: 1520px; margin: 0 auto; }
 .brand { display: inline-flex; align-items: center; gap: 12px; color: #13113e; font-family: "Microsoft YaHei", sans-serif; font-size: clamp(21px, 2vw, 30px); font-weight: 800; letter-spacing: .04em; white-space: nowrap; }
 .brand small { display: block; color: #9a93ba; font-family: "Microsoft YaHei", sans-serif; font-size: 8px; letter-spacing: .2em; font-weight: 500; margin-top: 3px; }
