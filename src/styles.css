@@ -39,7 +39,7 @@ h1, h2, h3, p { margin: 0; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; margin: 31px 0 17px; }
 .section-heading h2, .selected-title h2 { margin-top: 4px; color: #17143d; font-family: "Microsoft YaHei", sans-serif; font-size: 27px; }
 .section-heading > span { color: #8a83a5; font-size: 14px; }
-.character-grid { display: grid; grid-template-columns: 1.3fr repeat(3, 1fr); gap: 18px; }
+.character-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .character-card { min-height: 305px; position: relative; overflow: hidden; border: 1px solid rgba(231,225,249,.95); border-radius: 22px; background: #eae5ff; box-shadow: 0 12px 27px rgba(63,48,121,.09); transition: transform .25s ease, box-shadow .25s ease; }
 .character-card:hover { transform: translateY(-5px); box-shadow: 0 19px 34px rgba(70,48,132,.15); }
 .bella-card img { width: 100%; height: 100%; min-height: 305px; object-fit: cover; object-position: center 28%; }
