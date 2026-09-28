@@ -5,7 +5,7 @@ import {
   PackageOpen, Search, Shirt, Sparkles, UserRound, X,
 } from 'lucide-react'
 import {
-  assetKinds, assetPath, categories, getOutfit, kindLabel, outfits, previewPath, type AssetKind, type Outfit,
+  assetKinds, assetPath, categories, characters, getCharacter, getOutfit, getOutfitCharacter, kindLabel, outfits, previewPath, type AssetKind, type Outfit,
 } from './data/catalog'
 
 function ScrollToTop() {
@@ -106,20 +106,23 @@ function HomePage() {
 
       <div className="section-heading"><div><h2>角色档案</h2></div><span>持续收录中</span></div>
       <div className="character-grid">
-        <Link className="character-card bella-card" to="/character/bella">
-          <ImageThumb src="initial-close.png" alt="贝拉初代团服" />
-          <div className="card-gradient" />
-          <div className="character-card-copy"><p>CHAR-001 · A-SOUL</p><h3>贝拉</h3><span>13 套服装 · 19 张素材</span></div>
-          <span className="round-arrow filled"><ArrowRight size={19} /></span>
-        </Link>
-        {['乃琳', '嘉然', '向晚'].map((name, index) => <article className="character-card placeholder-card" key={name} aria-label={`${name}素材筹备中`}>
-          <div className={`placeholder-orb orb-${index + 1}`}><UserRound size={42} /></div>
-          <div className="character-card-copy"><p>A-SOUL · COMING SOON</p><h3>{name}</h3><span>素材筹备中</span></div>
+        {characters.map((character) => {
+          const assetCount = character.outfits.reduce((sum, outfit) => sum + outfit.assets.length, 0)
+          return <Link className="character-card bella-card" to={`/character/${character.id}`} key={character.id}>
+            <ImageThumb src={character.cover} alt={`${character.name}角色档案`} />
+            <div className="card-gradient" />
+            <div className="character-card-copy"><p>{character.code} · A-SOUL</p><h3>{character.name}</h3><span>{character.outfits.length} 个图集 · {assetCount} 张素材</span></div>
+            <span className="round-arrow filled"><ArrowRight size={19} /></span>
+          </Link>
+        })}
+        <article className="character-card placeholder-card" aria-label="乃琳素材筹备中">
+          <div className="placeholder-orb orb-1"><UserRound size={42} /></div>
+          <div className="character-card-copy"><p>A-SOUL · COMING SOON</p><h3>乃琳</h3><span>素材筹备中</span></div>
           <span className="coming">敬请期待</span>
-        </article>)}
+        </article>
       </div>
 
-      <div className="section-heading outfit-heading"><div><h2>{query || category !== '全部' ? '筛选结果' : '贝拉服装集'}</h2></div><span>{filtered.length} 套服装</span></div>
+      <div className="section-heading outfit-heading"><div><h2>{query || category !== '全部' ? '筛选结果' : '角色素材集'}</h2></div><span>{filtered.length} 套服装</span></div>
       {filtered.length ? <div className="outfit-grid">{filtered.map((outfit) => <OutfitCard outfit={outfit} key={outfit.id} />)}</div> :
         <div className="empty-state"><Search size={29} /><h3>没有匹配的素材</h3><p>试试其他关键词或切换分类。</p><button onClick={() => { setQuery(''); setCategory('全部') }}>清除筛选</button></div>}
     </section>
@@ -127,23 +130,27 @@ function HomePage() {
 }
 
 function CharacterPage() {
-  const [selectedId, setSelectedId] = useState(outfits[0].id)
-  const selected = getOutfit(selectedId) ?? outfits[0]
+  const { characterId } = useParams()
+  const character = getCharacter(characterId) ?? characters[0]
+  const [selectedId, setSelectedId] = useState(character.outfits[0].id)
+  useEffect(() => setSelectedId(character.outfits[0].id), [character])
+  const selected = character.outfits.find((outfit) => outfit.id === selectedId) ?? character.outfits[0]
+  const assetCount = character.outfits.reduce((sum, outfit) => sum + outfit.assets.length, 0)
   return <main className="inner-page"><PageHeader breadcrumbs={[{ label: '角色详情' }]} />
     <section className="character-hero">
-      <ImageThumb src="initial-close.png" alt="贝拉角色档案" />
+      <ImageThumb src={character.cover} alt={`${character.name}角色档案`} />
       <div className="hero-wash" />
-      <div className="character-identity"><p className="script-label">Bella</p><h1>贝拉</h1><span>A-SOUL <b>CHAR-001</b></span><Tags tags={['紫发', '女角色', 'A-SOUL', '偶像', '可爱']} /><p className="description">A-SOUL 成员之一，拥有标志性的紫色长发与红色蝴蝶结。收录多个风格的服装造型，适用于插画、建模与宣传物料等创作场景。</p></div>
-      <div className="character-stats"><div><Shirt /><strong>13</strong><span>套服装</span></div><div><ImageIcon /><strong>19</strong><span>张素材</span></div></div>
+      <div className="character-identity"><p className="script-label">{character.romanName}</p><h1>{character.name}</h1><span>A-SOUL <b>{character.code}</b></span><Tags tags={character.tags} /><p className="description">{character.description}</p></div>
+      <div className="character-stats"><div><Shirt /><strong>{character.outfits.length}</strong><span>个图集</span></div><div><ImageIcon /><strong>{assetCount}</strong><span>张素材</span></div></div>
     </section>
 
     <section className="detail-layout">
-      <div className="outfit-list-panel"><div className="section-heading"><div><p className="kicker">OUTFIT LIST</p><h2>服装列表</h2></div><span>共 13 套</span></div>
-        <div className="detail-outfit-grid">{outfits.map((outfit) => <button className={`detail-outfit ${selected.id === outfit.id ? 'selected' : ''}`} onClick={() => setSelectedId(outfit.id)} key={outfit.id}>
+      <div className="outfit-list-panel"><div className="section-heading"><div><p className="kicker">ASSET COLLECTIONS</p><h2>素材图集</h2></div><span>共 {character.outfits.length} 个</span></div>
+        <div className="detail-outfit-grid">{character.outfits.map((outfit) => <button className={`detail-outfit ${selected.id === outfit.id ? 'selected' : ''}`} onClick={() => setSelectedId(outfit.id)} key={outfit.id}>
           <ImageThumb src={outfit.cover} alt="" /><strong>{outfit.name}</strong><small><ImageIcon size={13} /> {outfit.assets.length} 张素材</small>
         </button>)}</div>
       </div>
-      <aside className="selected-panel"><div className="selected-title"><div><p className="kicker">SELECTED OUTFIT</p><h2>{selected.name}</h2></div><Link className="primary-button" to={`/outfit/${selected.id}`}><Download size={17} />查看素材</Link></div>
+      <aside className="selected-panel"><div className="selected-title"><div><p className="kicker">SELECTED COLLECTION</p><h2>{selected.name}</h2></div><Link className="primary-button" to={`/outfit/${selected.id}`}><Download size={17} />查看素材</Link></div>
         <div className="selected-meta"><span><Box size={17} /> {selected.assets.length} 张素材</span><span><Grid2X2 size={17} /> {selected.assets.length} 个视图</span></div>
         <div className="preview-strip">{selected.assets.slice(0, 3).map((asset) => <div key={asset.id}><ImageThumb src={asset.filename} alt={asset.title} /><p>{kindLabel[asset.kind]}</p></div>)}</div>
         <Tags tags={selected.tags} />
@@ -151,10 +158,10 @@ function CharacterPage() {
     </section>
   </main>
 }
-
 function OutfitPage() {
   const { outfitId } = useParams()
   const outfit = getOutfit(outfitId)
+  const character = getOutfitCharacter(outfitId) ?? characters[0]
   const [kind, setKind] = useState<AssetKind | 'all'>('all')
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
   useEffect(() => {
@@ -162,10 +169,10 @@ function OutfitPage() {
   }, [kind, outfitId])
   if (!outfit) return <Navigate to={`/outfit/${outfits[0].id}`} replace />
   const visible = kind === 'all' ? outfit.assets : outfit.assets.filter((asset) => asset.kind === kind)
-  return <main className="asset-page"><PageHeader breadcrumbs={[{ label: '贝拉', to: '/character/bella' }, { label: outfit.name }]} />
+  return <main className="asset-page"><PageHeader breadcrumbs={[{ label: character.name, to: `/character/${character.id}` }, { label: outfit.name }]} />
     <section className="asset-layout">
-      <aside className="asset-sidebar"><ImageThumb src={outfit.cover} alt={`${outfit.name}封面`} /><h1>{outfit.name}</h1><p>A-SOUL · 贝拉</p><span className="id-pill">服装 ID：{outfit.code}</span><Tags tags={outfit.tags} />
-        <dl><div><dt>角色 ID</dt><dd>CHAR-001</dd></div><div><dt>角色名称</dt><dd>贝拉</dd></div><div><dt>分类</dt><dd>{outfit.category}</dd></div><div><dt>资产数量</dt><dd>{outfit.assets.length} 个文件</dd></div><div><dt>文件格式</dt><dd>PNG 原始图</dd></div></dl>
+      <aside className="asset-sidebar"><ImageThumb src={outfit.cover} alt={`${outfit.name}封面`} /><h1>{outfit.name}</h1><p>A-SOUL · {character.name}</p><span className="id-pill">服装 ID：{outfit.code}</span><Tags tags={outfit.tags} />
+        <dl><div><dt>角色 ID</dt><dd>{character.code}</dd></div><div><dt>角色名称</dt><dd>{character.name}</dd></div><div><dt>分类</dt><dd>{outfit.category}</dd></div><div><dt>资产数量</dt><dd>{outfit.assets.length} 个文件</dd></div><div><dt>文件格式</dt><dd>PNG 原始图</dd></div></dl>
       </aside>
       <section className="asset-main"><div className="asset-title"><div className="title-icon"><Shirt /></div><div><h1>服装素材</h1><p>点击缩略图即可在当前页面放大查看，使用左右按钮浏览同一服装的其他视图。</p></div></div>
         <div className="asset-filters" aria-label="素材类型筛选">{assetKinds.map((item) => <button key={item.value} className={kind === item.value ? 'active' : ''} onClick={() => setKind(item.value)}>{item.label}</button>)}</div>
@@ -176,5 +183,5 @@ function OutfitPage() {
   </main>
 }
 export default function App() {
-  return <><ScrollToTop /><Routes><Route path="/" element={<HomePage />} /><Route path="/character/bella" element={<CharacterPage />} /><Route path="/outfit/:outfitId" element={<OutfitPage />} /><Route path="*" element={<Navigate to="/" replace />} /></Routes></>
+  return <><ScrollToTop /><Routes><Route path="/" element={<HomePage />} /><Route path="/character/:characterId" element={<CharacterPage />} /><Route path="/outfit/:outfitId" element={<OutfitPage />} /><Route path="*" element={<Navigate to="/" replace />} /></Routes></>
 }

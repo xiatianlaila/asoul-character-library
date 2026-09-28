@@ -30,7 +30,7 @@ const fullViews = (id: string, prefix: string, title: string): Asset[] => [
   { id: `${id}-back`, filename: `${prefix}-back.png`, title: `${title}-背面全身`, kind: 'back', width: 941, height: 1672 },
 ]
 
-export const outfits: Outfit[] = [
+const bellaOutfits: Outfit[] = [
   { id: 'initial', code: 'CHAR-001-OUTFIT-01', name: '初代团服', category: '团服', tags: ['团服', '初代', '经典造型', '官方'], cover: 'initial-close.png', assets: fullViews('initial', 'initial', '初代团服') },
   { id: 'debut', code: 'CHAR-001-OUTFIT-02', name: '出道服', category: '团服', tags: ['团服', '出道', '经典造型'], cover: 'debut-close.png', assets: fullViews('debut', 'debut', '出道服') },
   { id: 'anniversary', code: 'CHAR-001-OUTFIT-03', name: '二周年', category: '节日', tags: ['周年', '纪念', '团服'], cover: 'anniversary-close.png', assets: [face('anniversary', 'anniversary-close.png', '二周年')] },
@@ -47,6 +47,28 @@ export const outfits: Outfit[] = [
   { id: 'fifth-anniversary', code: 'CHAR-001-OUTFIT-14', name: '五周年', category: '节日', tags: ['周年', '纪念', '五周年'], cover: 'fifth-anniversary-close.png', assets: [face('fifth-anniversary', 'fifth-anniversary-close.png', '五周年')] },
 ]
 
+export interface Character {
+  id: string
+  code: string
+  name: string
+  romanName: string
+  cover: string
+  tags: string[]
+  description: string
+  outfits: Outfit[]
+}
+
+export const characters: Character[] = [
+  { id: 'bella', code: 'CHAR-001', name: '贝拉', romanName: 'Bella', cover: 'initial-close.png', tags: ['紫发', '女角色', 'A-SOUL', '偶像', '可爱'], description: 'A-SOUL 成员之一，拥有标志性的紫色长发与红色蝴蝶结。收录多个风格的服装造型，适用于插画、建模与宣传物料等创作场景。', outfits: bellaOutfits },
+  { id: 'ranran', code: 'CHAR-002', name: '嘉然', romanName: 'Diana', cover: 'ranran-debut-close.png', tags: ['棕发', '女角色', 'A-SOUL', '偶像', '元气'], description: 'A-SOUL 成员之一。本次收录出道服面部特写，可用于角色参考、插画与宣传物料创作。', outfits: [
+    { id: 'ranran-debut', code: 'CHAR-002-OUTFIT-01', name: '出道服', category: '团服', tags: ['团服', '出道', '官方'], cover: 'ranran-debut-close.png', assets: [face('ranran-debut', 'ranran-debut-close.png', '出道服')] },
+  ] },
+  { id: 'wanwan', code: 'CHAR-003', name: '向晚', romanName: 'Eileen', cover: 'wanwan-debut-close.png', tags: ['蓝发', '女角色', 'A-SOUL', '偶像', '活力'], description: 'A-SOUL 成员之一。本次收录出道服面部特写，可用于角色参考、插画与宣传物料创作。', outfits: [
+    { id: 'wanwan-debut', code: 'CHAR-003-OUTFIT-01', name: '出道服', category: '团服', tags: ['团服', '出道', '官方'], cover: 'wanwan-debut-close.png', assets: [face('wanwan-debut', 'wanwan-debut-close.png', '出道服')] },
+  ] },
+]
+
+export const outfits = characters.flatMap((character) => character.outfits)
 export const categories = ['全部', '团服', '礼服', '泳装', '节日', '其他']
 export const assetKinds: { value: AssetKind | 'all'; label: string }[] = [
   { value: 'all', label: '全部类型' },
@@ -63,3 +85,5 @@ export const kindLabel: Record<AssetKind, string> = {
 export const assetPath = (filename: string) => `${import.meta.env.BASE_URL}assets/${filename}`
 export const previewPath = (filename: string) => `${import.meta.env.BASE_URL}previews/${filename.replace(/\.png$/i, '.webp')}`
 export const getOutfit = (id?: string) => outfits.find((outfit) => outfit.id === id)
+export const getCharacter = (id?: string) => characters.find((character) => character.id === id)
+export const getOutfitCharacter = (outfitId?: string) => characters.find((character) => character.outfits.some((outfit) => outfit.id === outfitId))
