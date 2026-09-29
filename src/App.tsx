@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Link, Navigate, Route, Routes, useLocation, useParams } from 'react-router-dom'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { Link, Navigate, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom'
 import {
-  ArrowRight, Box, ChevronLeft, ChevronRight, Download, Grid2X2, Image as ImageIcon, Maximize2,
+  ArrowRight, Box, ChevronDown, ChevronLeft, ChevronRight, Download, Grid2X2, Image as ImageIcon, Maximize2,
   PackageOpen, Search, Shirt, Sparkles, UserRound, X,
 } from 'lucide-react'
 import {
@@ -25,14 +25,22 @@ function Brand({ compact = false }: { compact?: boolean }) {
 
 interface Breadcrumb { label: string; to?: string }
 
-function PageHeader({ breadcrumbs }: { breadcrumbs?: Breadcrumb[] }) {
+function PageHeader({ breadcrumbs, children }: { breadcrumbs?: Breadcrumb[]; children?: ReactNode }) {
   return <header className="page-header">
     <Brand compact />
-    {breadcrumbs && <nav className="breadcrumbs" aria-label="面包屑">
+    {children || (breadcrumbs && <nav className="breadcrumbs" aria-label="面包屑">
       {breadcrumbs.map((crumb) => <span key={crumb.label}><ChevronRight size={15} />{crumb.to ? <Link to={crumb.to}>{crumb.label}</Link> : <b>{crumb.label}</b>}</span>)}
-    </nav>}
+    </nav>)}
     <Link className="back-home" to="/"><Grid2X2 size={16} />浏览素材</Link>
   </header>
+}
+
+function OutfitBreadcrumbs({ character, outfit }: { character: (typeof characters)[number]; outfit: Outfit }) {
+  const navigate = useNavigate()
+  return <nav className="breadcrumbs outfit-breadcrumbs" aria-label="素材导航">
+    <span className="breadcrumb-selector"><ChevronRight size={15} /><label className="breadcrumb-select"><select value={character.id} onChange={(event) => navigate(`/character/${event.target.value}`)} aria-label="选择角色">{characters.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select><ChevronDown size={14} /></label></span>
+    <span className="breadcrumb-selector"><ChevronRight size={15} /><label className="breadcrumb-select"><select value={outfit.id} onChange={(event) => navigate(`/outfit/${event.target.value}`)} aria-label="选择素材图集">{character.outfits.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select><ChevronDown size={14} /></label></span>
+  </nav>
 }
 
 function ImageThumb({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
@@ -169,7 +177,7 @@ function OutfitPage() {
   }, [kind, outfitId])
   if (!outfit) return <Navigate to={`/outfit/${outfits[0].id}`} replace />
   const visible = kind === 'all' ? outfit.assets : outfit.assets.filter((asset) => asset.kind === kind)
-  return <main className="asset-page"><PageHeader breadcrumbs={[{ label: character.name, to: `/character/${character.id}` }, { label: outfit.name }]} />
+  return <main className="asset-page"><PageHeader><OutfitBreadcrumbs character={character} outfit={outfit} /></PageHeader>
     <section className="asset-layout">
       <aside className="asset-sidebar"><ImageThumb src={outfit.cover} alt={`${outfit.name}封面`} /><h1>{outfit.name}</h1><p>A-SOUL · {character.name}</p><span className="id-pill">服装 ID：{outfit.code}</span><Tags tags={outfit.tags} />
         <dl><div><dt>角色 ID</dt><dd>{character.code}</dd></div><div><dt>角色名称</dt><dd>{character.name}</dd></div><div><dt>分类</dt><dd>{outfit.category}</dd></div><div><dt>资产数量</dt><dd>{outfit.assets.length} 个文件</dd></div><div><dt>文件格式</dt><dd>PNG 原始图</dd></div></dl>
