@@ -149,6 +149,7 @@ function HomePage() {
 }
 
 function CharacterPage() {
+  const navigate = useNavigate()
   const { characterId } = useParams()
   const character = getCharacter(characterId) ?? characters[0]
   const [selectedId, setSelectedId] = useState(character.outfits[0].id)
@@ -165,7 +166,7 @@ function CharacterPage() {
 
     <section className="detail-layout">
       <div className="outfit-list-panel"><div className="section-heading"><div><p className="kicker">ASSET COLLECTIONS</p><h2>素材图集</h2></div><span>共 {character.outfits.length} 个</span></div>
-        <div className="detail-outfit-grid">{character.outfits.map((outfit) => <button className={`detail-outfit ${selected.id === outfit.id ? 'selected' : ''}`} onClick={() => setSelectedId(outfit.id)} key={outfit.id}>
+        <div className="detail-outfit-grid">{character.outfits.map((outfit) => <button className={`detail-outfit ${selected.id === outfit.id ? 'selected' : ''}`} onClick={() => setSelectedId(outfit.id)} onDoubleClick={() => navigate(`/outfit/${outfit.id}`)} title="双击进入素材页" key={outfit.id}>
           <ImageThumb src={outfit.cover} alt="" /><strong>{outfit.name}</strong><small><ImageIcon size={13} /> {outfit.assets.length} 张素材</small>
         </button>)}</div>
       </div>
