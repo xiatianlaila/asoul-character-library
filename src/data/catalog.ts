@@ -59,11 +59,11 @@ export interface Character {
 }
 
 export const characters: Character[] = [
-  { id: 'bella', code: 'CHAR-001', name: '贝拉', romanName: 'Bella', cover: 'initial-close.png', tags: ['紫发', '女角色', 'A-SOUL', '偶像', '可爱'], description: 'A-SOUL 成员之一，拥有标志性的紫色长发与红色蝴蝶结。收录多个风格的服装造型，适用于插画、建模与宣传物料等创作场景。', outfits: bellaOutfits },
-  { id: 'ranran', code: 'CHAR-002', name: '嘉然', romanName: 'Diana', cover: 'ranran-debut-close.png', tags: ['棕发', '女角色', 'A-SOUL', '偶像', '元气'], description: 'A-SOUL 成员之一。本次收录出道服面部特写，可用于角色参考、插画与宣传物料创作。', outfits: [
+  { id: 'bella', code: 'Bella', name: '贝拉', romanName: 'Bella', cover: 'initial-close.png', tags: ['紫发', '女角色', 'A-SOUL', '偶像', '可爱'], description: 'A-SOUL 成员之一，拥有标志性的紫色长发与红色蝴蝶结。收录多个风格的服装造型，适用于插画、建模与宣传物料等创作场景。', outfits: bellaOutfits },
+  { id: 'ranran', code: 'Diana', name: '嘉然', romanName: 'Diana', cover: 'ranran-debut-close.png', tags: ['棕发', '女角色', 'A-SOUL', '偶像', '元气'], description: 'A-SOUL 成员之一。本次收录出道服面部特写，可用于角色参考、插画与宣传物料创作。', outfits: [
     { id: 'ranran-debut', code: 'CHAR-002-OUTFIT-01', name: '出道服', category: '团服', tags: ['团服', '出道', '官方'], cover: 'ranran-debut-close.png', assets: [face('ranran-debut', 'ranran-debut-close.png', '出道服')] },
   ] },
-  { id: 'wanwan', code: 'CHAR-003', name: '向晚', romanName: 'Eileen', cover: 'wanwan-debut-close.png', tags: ['蓝发', '女角色', 'A-SOUL', '偶像', '活力'], description: 'A-SOUL 成员之一。本次收录出道服面部特写，可用于角色参考、插画与宣传物料创作。', outfits: [
+  { id: 'wanwan', code: 'Ava', name: '向晚', romanName: 'Ava', cover: 'wanwan-debut-close.png', tags: ['蓝发', '女角色', 'A-SOUL', '偶像', '活力'], description: 'A-SOUL 成员之一。本次收录出道服面部特写，可用于角色参考、插画与宣传物料创作。', outfits: [
     { id: 'wanwan-debut', code: 'CHAR-003-OUTFIT-01', name: '出道服', category: '团服', tags: ['团服', '出道', '官方'], cover: 'wanwan-debut-close.png', assets: [face('wanwan-debut', 'wanwan-debut-close.png', '出道服')] },
   ] },
 ]
