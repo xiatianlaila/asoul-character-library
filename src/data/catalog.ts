@@ -31,20 +31,20 @@ const fullViews = (id: string, prefix: string, title: string): Asset[] => [
 ]
 
 const bellaOutfits: Outfit[] = [
-  { id: 'initial', code: 'CHAR-001-OUTFIT-01', name: '初代团服', category: '团服', tags: ['团服', '初代', '经典造型', '官方'], cover: 'initial-close.png', assets: fullViews('initial', 'initial', '初代团服') },
-  { id: 'debut', code: 'CHAR-001-OUTFIT-02', name: '出道服', category: '团服', tags: ['团服', '出道', '经典造型'], cover: 'debut-close.png', assets: fullViews('debut', 'debut', '出道服') },
-  { id: 'anniversary', code: 'CHAR-001-OUTFIT-03', name: '二周年', category: '节日', tags: ['周年', '纪念', '团服'], cover: 'anniversary-close.png', assets: [face('anniversary', 'anniversary-close.png', '二周年')] },
-  { id: 'red-coat', code: 'CHAR-001-OUTFIT-04', name: '红棉袄', category: '节日', tags: ['节日', '红色', '冬季'], cover: 'red-coat-close.png', assets: [face('red-coat', 'red-coat-close.png', '红棉袄')] },
-  { id: 'bridal', code: 'CHAR-001-OUTFIT-05', name: '花嫁服', category: '礼服', tags: ['礼服', '花嫁', '优雅'], cover: 'bridal-close.png', assets: [face('bridal', 'bridal-close.png', '花嫁服')] },
-  { id: 'blue-coat', code: 'CHAR-001-OUTFIT-06', name: '蓝棉袄', category: '节日', tags: ['节日', '蓝色', '冬季'], cover: 'blue-coat-close.png', assets: [face('blue-coat', 'blue-coat-close.png', '蓝棉袄')] },
-  { id: 'formal', code: 'CHAR-001-OUTFIT-07', name: '礼服', category: '礼服', tags: ['礼服', '正式', '演出'], cover: 'formal-close.png', assets: [face('formal', 'formal-close.png', '礼服')] },
-  { id: 'green-apple', code: 'CHAR-001-OUTFIT-08', name: '青苹果', category: '其他', tags: ['日常', '青苹果', '可爱'], cover: 'green-apple-close.png', assets: [face('green-apple', 'green-apple-close.png', '青苹果')] },
-  { id: 'reindeer', code: 'CHAR-001-OUTFIT-09', name: '圣诞鹿', category: '节日', tags: ['节日', '圣诞', '可爱'], cover: 'reindeer-close.png', assets: [face('reindeer', 'reindeer-close.png', '圣诞鹿')] },
-  { id: 'recolor', code: 'CHAR-001-OUTFIT-10', name: '团服换色', category: '团服', tags: ['团服', '换色', '舞台'], cover: 'recolor-close.png', assets: [face('recolor', 'recolor-close.png', '团服换色')] },
-  { id: 'swimsuit', code: 'CHAR-001-OUTFIT-11', name: '泳装', category: '泳装', tags: ['泳装', '夏日', '清爽'], cover: 'swimsuit-close.png', assets: [face('swimsuit', 'swimsuit-close.png', '泳装')] },
-  { id: 'jk', code: 'CHAR-001-OUTFIT-12', name: 'JK服', category: '其他', tags: ['JK', '校园', '日常'], cover: 'jk-close.png', assets: [face('jk', 'jk-close.png', 'JK服')] },
-  { id: 'polar-bear', code: 'CHAR-001-OUTFIT-13', name: '北极熊', category: '其他', tags: ['北极熊', '冬季', '可爱'], cover: 'polar-bear-close.png', assets: [face('polar-bear', 'polar-bear-close.png', '北极熊')] },
-  { id: 'fifth-anniversary', code: 'CHAR-001-OUTFIT-14', name: '五周年', category: '节日', tags: ['周年', '纪念', '五周年'], cover: 'fifth-anniversary-close.png', assets: [face('fifth-anniversary', 'fifth-anniversary-close.png', '五周年')] },
+  { id: 'initial', code: 'Bella-OUTFIT-01', name: '初代团服', category: '团服', tags: ['团服', '初代', '经典造型', '官方'], cover: 'initial-close.png', assets: fullViews('initial', 'initial', '初代团服') },
+  { id: 'debut', code: 'Bella-OUTFIT-02', name: '出道服', category: '团服', tags: ['团服', '出道', '经典造型'], cover: 'debut-close.png', assets: fullViews('debut', 'debut', '出道服') },
+  { id: 'anniversary', code: 'Bella-OUTFIT-03', name: '二周年', category: '节日', tags: ['周年', '纪念', '团服'], cover: 'anniversary-close.png', assets: [face('anniversary', 'anniversary-close.png', '二周年')] },
+  { id: 'red-coat', code: 'Bella-OUTFIT-04', name: '红棉袄', category: '节日', tags: ['节日', '红色', '冬季'], cover: 'red-coat-close.png', assets: [face('red-coat', 'red-coat-close.png', '红棉袄')] },
+  { id: 'bridal', code: 'Bella-OUTFIT-05', name: '花嫁服', category: '礼服', tags: ['礼服', '花嫁', '优雅'], cover: 'bridal-close.png', assets: [face('bridal', 'bridal-close.png', '花嫁服')] },
+  { id: 'blue-coat', code: 'Bella-OUTFIT-06', name: '蓝棉袄', category: '节日', tags: ['节日', '蓝色', '冬季'], cover: 'blue-coat-close.png', assets: [face('blue-coat', 'blue-coat-close.png', '蓝棉袄')] },
+  { id: 'formal', code: 'Bella-OUTFIT-07', name: '礼服', category: '礼服', tags: ['礼服', '正式', '演出'], cover: 'formal-close.png', assets: [face('formal', 'formal-close.png', '礼服')] },
+  { id: 'green-apple', code: 'Bella-OUTFIT-08', name: '青苹果', category: '其他', tags: ['日常', '青苹果', '可爱'], cover: 'green-apple-close.png', assets: [face('green-apple', 'green-apple-close.png', '青苹果')] },
+  { id: 'reindeer', code: 'Bella-OUTFIT-09', name: '圣诞鹿', category: '节日', tags: ['节日', '圣诞', '可爱'], cover: 'reindeer-close.png', assets: [face('reindeer', 'reindeer-close.png', '圣诞鹿')] },
+  { id: 'recolor', code: 'Bella-OUTFIT-10', name: '团服换色', category: '团服', tags: ['团服', '换色', '舞台'], cover: 'recolor-close.png', assets: [face('recolor', 'recolor-close.png', '团服换色')] },
+  { id: 'swimsuit', code: 'Bella-OUTFIT-11', name: '泳装', category: '泳装', tags: ['泳装', '夏日', '清爽'], cover: 'swimsuit-close.png', assets: [face('swimsuit', 'swimsuit-close.png', '泳装')] },
+  { id: 'jk', code: 'Bella-OUTFIT-12', name: 'JK服', category: '其他', tags: ['JK', '校园', '日常'], cover: 'jk-close.png', assets: [face('jk', 'jk-close.png', 'JK服')] },
+  { id: 'polar-bear', code: 'Bella-OUTFIT-13', name: '北极熊', category: '其他', tags: ['北极熊', '冬季', '可爱'], cover: 'polar-bear-close.png', assets: [face('polar-bear', 'polar-bear-close.png', '北极熊')] },
+  { id: 'fifth-anniversary', code: 'Bella-OUTFIT-14', name: '五周年', category: '节日', tags: ['周年', '纪念', '五周年'], cover: 'fifth-anniversary-close.png', assets: [face('fifth-anniversary', 'fifth-anniversary-close.png', '五周年')] },
 ]
 
 export interface Character {
@@ -61,10 +61,10 @@ export interface Character {
 export const characters: Character[] = [
   { id: 'bella', code: 'Bella', name: '贝拉', romanName: 'Bella', cover: 'initial-close.png', tags: ['紫发', '女角色', 'A-SOUL', '偶像', '可爱'], description: 'A-SOUL 成员之一，拥有标志性的紫色长发与红色蝴蝶结。收录多个风格的服装造型，适用于插画、建模与宣传物料等创作场景。', outfits: bellaOutfits },
   { id: 'ranran', code: 'Diana', name: '嘉然', romanName: 'Diana', cover: 'ranran-debut-close.png', tags: ['棕发', '女角色', 'A-SOUL', '偶像', '元气'], description: 'A-SOUL 成员之一。本次收录出道服面部特写，可用于角色参考、插画与宣传物料创作。', outfits: [
-    { id: 'ranran-debut', code: 'CHAR-002-OUTFIT-01', name: '出道服', category: '团服', tags: ['团服', '出道', '官方'], cover: 'ranran-debut-close.png', assets: [face('ranran-debut', 'ranran-debut-close.png', '出道服')] },
+    { id: 'ranran-debut', code: 'Diana-OUTFIT-01', name: '出道服', category: '团服', tags: ['团服', '出道', '官方'], cover: 'ranran-debut-close.png', assets: [face('ranran-debut', 'ranran-debut-close.png', '出道服')] },
   ] },
   { id: 'wanwan', code: 'Ava', name: '向晚', romanName: 'Ava', cover: 'wanwan-debut-close.png', tags: ['蓝发', '女角色', 'A-SOUL', '偶像', '活力'], description: 'A-SOUL 成员之一。本次收录出道服面部特写，可用于角色参考、插画与宣传物料创作。', outfits: [
-    { id: 'wanwan-debut', code: 'CHAR-003-OUTFIT-01', name: '出道服', category: '团服', tags: ['团服', '出道', '官方'], cover: 'wanwan-debut-close.png', assets: [face('wanwan-debut', 'wanwan-debut-close.png', '出道服')] },
+    { id: 'wanwan-debut', code: 'Ava-OUTFIT-01', name: '出道服', category: '团服', tags: ['团服', '出道', '官方'], cover: 'wanwan-debut-close.png', assets: [face('wanwan-debut', 'wanwan-debut-close.png', '出道服')] },
   ] },
 ]
 
