@@ -17,9 +17,9 @@ function ScrollToTop() {
 }
 
 function Brand({ compact = false }: { compact?: boolean }) {
-  return <Link className="brand" to="/" aria-label="返回角色素材库首页">
+  return <Link className="brand" to="/" aria-label="返回枝江素材库首页">
     <span className="brand-mark"><Sparkles size={compact ? 18 : 23} /></span>
-    <span>{compact ? '角色素材库' : '角色素材库'}<small>A-SOUL ASSET ARCHIVE</small></span>
+    <span>{compact ? '枝江素材库' : '枝江素材库'}<small>ZHIJIANG ASSET ARCHIVE</small></span>
   </Link>
 }
 
