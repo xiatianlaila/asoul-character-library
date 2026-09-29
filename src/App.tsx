@@ -35,13 +35,22 @@ function PageHeader({ breadcrumbs, children }: { breadcrumbs?: Breadcrumb[]; chi
   </header>
 }
 
+function CharacterBreadcrumbMenu({ character }: { character: (typeof characters)[number] }) {
+  const navigate = useNavigate()
+  const [isOpen, setIsOpen] = useState(false)
+  return <span className="breadcrumb-menu"><button className="breadcrumb-menu-trigger" type="button" aria-haspopup="menu" aria-expanded={isOpen} onClick={() => setIsOpen((open) => !open)}>{character.name}<ChevronDown size={15} /></button>{isOpen && <span className="breadcrumb-menu-panel" role="menu">{characters.map((item) => <button className={item.id === character.id ? 'active' : ''} type="button" role="menuitem" key={item.id} onClick={() => { setIsOpen(false); navigate(`/character/${item.id}`) }}>{item.name}</button>)}</span>}</span>
+}
+
+function CharacterBreadcrumbs({ character }: { character: (typeof characters)[number] }) {
+  return <nav className="breadcrumbs outfit-breadcrumbs" aria-label="角色导航"><span className="breadcrumb-selector"><ChevronRight size={15} /><CharacterBreadcrumbMenu character={character} /></span></nav>
+}
+
 function OutfitBreadcrumbs({ character, outfit }: { character: (typeof characters)[number]; outfit: Outfit }) {
   const navigate = useNavigate()
-  const [openMenu, setOpenMenu] = useState<'character' | 'outfit' | null>(null)
-  const toggleMenu = (menu: 'character' | 'outfit') => setOpenMenu((current) => current === menu ? null : menu)
+  const [isOutfitMenuOpen, setIsOutfitMenuOpen] = useState(false)
   return <nav className="breadcrumbs outfit-breadcrumbs" aria-label="素材导航">
-    <span className="breadcrumb-selector"><ChevronRight size={15} /><span className="breadcrumb-menu"><button className="breadcrumb-menu-trigger" type="button" aria-haspopup="menu" aria-expanded={openMenu === 'character'} onClick={() => toggleMenu('character')}>{character.name}<ChevronDown size={15} /></button>{openMenu === 'character' && <span className="breadcrumb-menu-panel" role="menu">{characters.map((item) => <button className={item.id === character.id ? 'active' : ''} type="button" role="menuitem" key={item.id} onClick={() => { setOpenMenu(null); navigate(`/character/${item.id}`) }}>{item.name}</button>)}</span>}</span></span>
-    <span className="breadcrumb-selector"><ChevronRight size={15} /><span className="breadcrumb-menu"><button className="breadcrumb-menu-trigger current" type="button" aria-haspopup="menu" aria-expanded={openMenu === 'outfit'} onClick={() => toggleMenu('outfit')}>{outfit.name}<ChevronDown size={15} /></button>{openMenu === 'outfit' && <span className="breadcrumb-menu-panel" role="menu">{character.outfits.map((item) => <button className={item.id === outfit.id ? 'active' : ''} type="button" role="menuitem" key={item.id} onClick={() => { setOpenMenu(null); navigate(`/outfit/${item.id}`) }}>{item.name}</button>)}</span>}</span></span>
+    <span className="breadcrumb-selector"><ChevronRight size={15} /><CharacterBreadcrumbMenu character={character} /></span>
+    <span className="breadcrumb-selector"><ChevronRight size={15} /><span className="breadcrumb-menu"><button className="breadcrumb-menu-trigger current" type="button" aria-haspopup="menu" aria-expanded={isOutfitMenuOpen} onClick={() => setIsOutfitMenuOpen((open) => !open)}>{outfit.name}<ChevronDown size={15} /></button>{isOutfitMenuOpen && <span className="breadcrumb-menu-panel" role="menu">{character.outfits.map((item) => <button className={item.id === outfit.id ? 'active' : ''} type="button" role="menuitem" key={item.id} onClick={() => { setIsOutfitMenuOpen(false); navigate(`/outfit/${item.id}`) }}>{item.name}</button>)}</span>}</span></span>
   </nav>
 }
 
@@ -146,7 +155,7 @@ function CharacterPage() {
   useEffect(() => setSelectedId(character.outfits[0].id), [character])
   const selected = character.outfits.find((outfit) => outfit.id === selectedId) ?? character.outfits[0]
   const assetCount = character.outfits.reduce((sum, outfit) => sum + outfit.assets.length, 0)
-  return <main className="inner-page"><PageHeader breadcrumbs={[{ label: '角色详情' }]} />
+  return <main className="inner-page"><PageHeader><CharacterBreadcrumbs character={character} /></PageHeader>
     <section className="character-hero">
       <ImageThumb src={character.cover} alt={`${character.name}角色档案`} />
       <div className="hero-wash" />
