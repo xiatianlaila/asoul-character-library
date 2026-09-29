@@ -37,9 +37,11 @@ function PageHeader({ breadcrumbs, children }: { breadcrumbs?: Breadcrumb[]; chi
 
 function OutfitBreadcrumbs({ character, outfit }: { character: (typeof characters)[number]; outfit: Outfit }) {
   const navigate = useNavigate()
+  const [openMenu, setOpenMenu] = useState<'character' | 'outfit' | null>(null)
+  const toggleMenu = (menu: 'character' | 'outfit') => setOpenMenu((current) => current === menu ? null : menu)
   return <nav className="breadcrumbs outfit-breadcrumbs" aria-label="素材导航">
-    <span className="breadcrumb-selector"><ChevronRight size={15} /><label className="breadcrumb-select"><select value={character.id} onChange={(event) => navigate(`/character/${event.target.value}`)} aria-label="选择角色">{characters.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select><ChevronDown size={14} /></label></span>
-    <span className="breadcrumb-selector"><ChevronRight size={15} /><label className="breadcrumb-select"><select value={outfit.id} onChange={(event) => navigate(`/outfit/${event.target.value}`)} aria-label="选择素材图集">{character.outfits.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</select><ChevronDown size={14} /></label></span>
+    <span className="breadcrumb-selector"><ChevronRight size={15} /><span className="breadcrumb-menu"><button className="breadcrumb-menu-trigger" type="button" aria-haspopup="menu" aria-expanded={openMenu === 'character'} onClick={() => toggleMenu('character')}>{character.name}<ChevronDown size={15} /></button>{openMenu === 'character' && <span className="breadcrumb-menu-panel" role="menu">{characters.map((item) => <button className={item.id === character.id ? 'active' : ''} type="button" role="menuitem" key={item.id} onClick={() => { setOpenMenu(null); navigate(`/character/${item.id}`) }}>{item.name}</button>)}</span>}</span></span>
+    <span className="breadcrumb-selector"><ChevronRight size={15} /><span className="breadcrumb-menu"><button className="breadcrumb-menu-trigger current" type="button" aria-haspopup="menu" aria-expanded={openMenu === 'outfit'} onClick={() => toggleMenu('outfit')}>{outfit.name}<ChevronDown size={15} /></button>{openMenu === 'outfit' && <span className="breadcrumb-menu-panel" role="menu">{character.outfits.map((item) => <button className={item.id === outfit.id ? 'active' : ''} type="button" role="menuitem" key={item.id} onClick={() => { setOpenMenu(null); navigate(`/outfit/${item.id}`) }}>{item.name}</button>)}</span>}</span></span>
   </nav>
 }
 
