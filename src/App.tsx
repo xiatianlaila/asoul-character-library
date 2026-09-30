@@ -113,16 +113,6 @@ function HomePage() {
     </section>
 
     <section className="content-wrap home-content">
-      <div className="filter-row" aria-label="服装分类筛选">
-        <form className="search-box filter-search" onSubmit={(event) => event.preventDefault()}>
-          <Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索角色名称 / 编号 / 标签..." aria-label="搜索素材" />
-          {query && <button type="button" className="clear-search" onClick={() => setQuery('')} aria-label="清除搜索"><X size={17} /></button>}
-        </form>
-        {categories.map((item) => <button key={item} className={category === item ? 'active' : ''} onClick={() => setCategory(item)}>
-          {item === '全部' ? <Grid2X2 size={18} /> : <Shirt size={18} />}{item === '全部' ? '全部素材' : item}
-        </button>)}
-      </div>
-
       <div className="section-heading"><div><h2>角色档案</h2></div><span>持续收录中</span></div>
       <div className="character-grid">
         {characters.map((character) => {
@@ -139,6 +129,16 @@ function HomePage() {
           <div className="character-card-copy"><p>A-SOUL · COMING SOON</p><h3>乃琳</h3><span>素材筹备中</span></div>
           <span className="coming">敬请期待</span>
         </article>
+      </div>
+
+      <div className="filter-row" aria-label="服装分类筛选">
+        <form className="search-box filter-search" onSubmit={(event) => event.preventDefault()}>
+          <Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索角色名称 / 编号 / 标签..." aria-label="搜索素材" />
+          {query && <button type="button" className="clear-search" onClick={() => setQuery('')} aria-label="清除搜索"><X size={17} /></button>}
+        </form>
+        {categories.map((item) => <button key={item} className={category === item ? 'active' : ''} onClick={() => setCategory(item)}>
+          {item === '全部' ? <Grid2X2 size={18} /> : <Shirt size={18} />}{item === '全部' ? '全部素材' : item}
+        </button>)}
       </div>
 
       <div className="section-heading outfit-heading"><div><h2>{query || category !== '全部' ? '筛选结果' : '角色素材集'}</h2></div><span>{filtered.length} 套服装</span></div>
