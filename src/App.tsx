@@ -155,7 +155,7 @@ function CharacterPage() {
     <section className="character-hero">
       <ImageThumb src={character.cover} alt={`${character.name}角色档案`} />
       <div className="hero-wash" />
-      <div className="character-identity"><p className="script-label">{character.romanName}</p><h1>{character.name}</h1><span>A-SOUL <b>{character.code}</b></span><Tags tags={character.tags} /><p className="description">{character.description}</p></div>
+      <div className="character-identity"><h1>{character.name}</h1><span>A-SOUL <b>{character.code}</b></span><Tags tags={character.tags} /></div>
       <div className="character-stats"><div><Shirt /><strong>{character.outfits.length}</strong><span>个图集</span></div><div><ImageIcon /><strong>{assetCount}</strong><span>张素材</span></div></div>
     </section>
 
