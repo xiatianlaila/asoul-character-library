@@ -40,7 +40,7 @@ const bellaOutfits: Outfit[] = [
   { id: 'formal', code: 'Bella-OUTFIT-07', name: '礼服', category: '礼服', tags: ['礼服', '正式', '演出'], cover: 'formal-close.png', assets: [face('formal', 'formal-close.png', '礼服')] },
   { id: 'green-apple', code: 'Bella-OUTFIT-08', name: '青苹果', category: '其他', tags: ['日常', '青苹果', '可爱'], cover: 'green-apple-close.png', assets: [face('green-apple', 'green-apple-close.png', '青苹果')] },
   { id: 'reindeer', code: 'Bella-OUTFIT-09', name: '圣诞鹿', category: '节日', tags: ['节日', '圣诞', '可爱'], cover: 'reindeer-close.png', assets: [face('reindeer', 'reindeer-close.png', '圣诞鹿')] },
-  { id: 'recolor', code: 'Bella-OUTFIT-10', name: '团服换色', category: '团服', tags: ['团服', '换色', '舞台'], cover: 'recolor-close.png', assets: [face('recolor', 'recolor-close.png', '团服换色')] },
+  { id: 'recolor', code: 'Bella-OUTFIT-10', name: '团服黑粉', category: '团服', tags: ['团服', '黑粉', '舞台'], cover: 'recolor-close.png', assets: [face('recolor', 'recolor-close.png', '团服黑粉')] },
   { id: 'swimsuit', code: 'Bella-OUTFIT-11', name: '泳装', category: '泳装', tags: ['泳装', '夏日', '清爽'], cover: 'swimsuit-close.png', assets: [face('swimsuit', 'swimsuit-close.png', '泳装')] },
   { id: 'jk', code: 'Bella-OUTFIT-12', name: 'JK服', category: '其他', tags: ['JK', '校园', '日常'], cover: 'jk-close.png', assets: [face('jk', 'jk-close.png', 'JK服')] },
   { id: 'polar-bear', code: 'Bella-OUTFIT-13', name: '北极熊', category: '其他', tags: ['北极熊', '冬季', '可爱'], cover: 'polar-bear-close.png', assets: [face('polar-bear', 'polar-bear-close.png', '北极熊')] },
