@@ -124,11 +124,6 @@ function HomePage() {
             <span className="round-arrow filled"><ArrowRight size={19} /></span>
           </Link>
         })}
-        <article className="character-card placeholder-card" aria-label="乃琳素材筹备中">
-          <div className="placeholder-orb orb-1"><UserRound size={42} /></div>
-          <div className="character-card-copy"><p>A-SOUL · COMING SOON</p><h3>乃琳</h3><span>素材筹备中</span></div>
-          <span className="coming">敬请期待</span>
-        </article>
       </div>
 
       <div className="section-heading outfit-heading"><div><h2>{query || category !== '全部' ? '筛选结果' : '服装素材集'}</h2></div><span>{filtered.length} 套服装</span></div>

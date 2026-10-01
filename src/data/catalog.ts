@@ -66,6 +66,14 @@ export const characters: Character[] = [
   { id: 'wanwan', code: 'Ava', name: '向晚', romanName: 'Ava', cover: 'wanwan-debut-close.png', tags: ['蓝发', '女角色', 'A-SOUL', '偶像', '活力'], description: 'A-SOUL 成员之一。本次收录出道服面部特写，可用于角色参考、插画与宣传物料创作。', outfits: [
     { id: 'wanwan-debut', code: 'Ava-OUTFIT-01', name: '出道服', category: '团服', tags: ['团服', '出道', '官方'], cover: 'wanwan-debut-close.png', assets: [face('wanwan-debut', 'wanwan-debut-close.png', '出道服')] },
   ] },
+  { id: 'nailin', code: 'Eileen', name: '乃琳', romanName: 'Eileen', cover: 'nailin-initial-close.png', tags: ['银发', '女角色', 'A-SOUL', '偶像', '优雅'], description: 'A-SOUL 成员之一。收录初代团服、汉服系列、敦煌、礼服等多套面部特写素材，可用于角色参考与创作。', outfits: [
+    { id: 'nailin-initial', code: 'Eileen-OUTFIT-01', name: '初代团服', category: '团服', tags: ['团服', '初代', '经典造型'], cover: 'nailin-initial-close.png', assets: [face('nailin-initial', 'nailin-initial-close.png', '初代团服')] },
+    { id: 'nailin-dunhuang', code: 'Eileen-OUTFIT-02', name: '敦煌', category: '其他', tags: ['敦煌', '古风', '国风'], cover: 'nailin-dunhuang-close.png', assets: [face('nailin-dunhuang', 'nailin-dunhuang-close.png', '敦煌')] },
+    { id: 'nailin-hanfu-red', code: 'Eileen-OUTFIT-03', name: '汉服红', category: '其他', tags: ['汉服', '红色', '古风'], cover: 'nailin-hanfu-red-close.png', assets: [face('nailin-hanfu-red', 'nailin-hanfu-red-close.png', '汉服红')] },
+    { id: 'nailin-hanfu-yellow', code: 'Eileen-OUTFIT-04', name: '汉服黄', category: '其他', tags: ['汉服', '黄色', '古风'], cover: 'nailin-hanfu-yellow-close.png', assets: [face('nailin-hanfu-yellow', 'nailin-hanfu-yellow-close.png', '汉服黄')] },
+    { id: 'nailin-hanfu-blue', code: 'Eileen-OUTFIT-05', name: '汉服蓝', category: '其他', tags: ['汉服', '蓝色', '古风'], cover: 'nailin-hanfu-blue-close.png', assets: [face('nailin-hanfu-blue', 'nailin-hanfu-blue-close.png', '汉服蓝')] },
+    { id: 'nailin-formal', code: 'Eileen-OUTFIT-06', name: '礼服', category: '礼服', tags: ['礼服', '正式', '优雅'], cover: 'nailin-formal-close.png', assets: [face('nailin-formal', 'nailin-formal-close.png', '礼服')] },
+  ] },
 ]
 
 export const outfits = characters.flatMap((character) => character.outfits)
